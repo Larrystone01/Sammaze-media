@@ -1,6 +1,7 @@
 import { Asterisk } from "lucide-react";
 import { useGlobalContext } from "../context/GlobalContext";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 export default function ContactMe() {
   const { services } = useGlobalContext();
@@ -8,14 +9,17 @@ export default function ContactMe() {
     firstName: "",
     lastName: "",
     email: "",
-    number: "",
+    phone: "",
     service: "",
     preferredDate: "",
     preferredTime: "",
+    numOfSubject: "",
     eventLocation: "",
     expectedDuration: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,11 +29,76 @@ export default function ContactMe() {
     }));
   };
 
-  const handleServiceType = (service) => {
+  const handleServiceType = (title) => {
     setFormData((prev) => ({
       ...prev,
-      service,
+      service: title,
     }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("");
+
+    try {
+      // Replace these with your actual EmailJS credentials
+      const SERVICE_ID = "service_fa8p3tp";
+      const TEMPLATE_ID = "template_2gkzxp4";
+      const PUBLIC_KEY = "UT6jUQYnN_mrHrY3S";
+
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        phone_number: formData.phone,
+        service_type: formData.service,
+        preferred_date: formData.preferredDate,
+        preferred_time: formData.preferredTime,
+        event_location: formData.eventLocation,
+        expected_duration: formData.expectedDuration,
+        number_of_guests: formData.numOfSubject,
+        message: formData.message,
+        to_name: "Photography Team", // Your name/business name
+      };
+
+      const result = await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        templateParams,
+        { publicKey: PUBLIC_KEY }
+      );
+
+      if (result.status === 200) {
+        setSubmitStatus("success");
+        // Reset form after successful submission
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          service: "",
+          preferredDate: "",
+          preferredTime: "",
+          eventLocation: "",
+          expectedDuration: "",
+          numOfSubject: "",
+          message: "",
+        });
+
+        setTimeout(() => {
+          setSubmitStatus("");
+        }, 3000);
+      }
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setSubmitStatus("error");
+      setTimeout(() => {
+        setSubmitStatus("");
+      }, 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -42,7 +111,23 @@ export default function ContactMe() {
               Ready to capture your special moments? Fill out the form below and
               we'll get back to you within 24 hours to confirm your booking
             </p>
-            <form className="booking-field bg-gray-400 text-white p-4">
+
+            {submitStatus === "success" && (
+              <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                Thank you! Your booking request has been sent successfully.
+                We'll get back to you within 24 hours.
+              </div>
+            )}
+            {submitStatus === "error" && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                Sorry, there was an error sending your request. Please try again
+                or contact us directly.
+              </div>
+            )}
+            <form
+              className="booking-field bg-gray-400 text-white p-4"
+              onSubmit={handleSubmit}
+            >
               <h1 className="text-[20px] border-b mb-4">
                 Personal Information
               </h1>
@@ -99,7 +184,7 @@ export default function ContactMe() {
                     <input
                       type="tel"
                       name="phone"
-                      value={formData.number}
+                      value={formData.phone}
                       onChange={handleInputChange}
                       required
                       className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-1"
@@ -116,12 +201,12 @@ export default function ContactMe() {
                     return (
                       <div
                         className={`service text-black px-4 py-3 rounded-[10px] cursor-pointer ${
-                          formData.service === service
+                          formData.service === service.title
                             ? "bg-orange-400 text-white"
                             : "bg-white"
                         }`}
                         key={service.id}
-                        onClick={() => handleServiceType(service)}
+                        onClick={() => handleServiceType(service.title)}
                       >
                         <h1 className="font-bold text-[20px]">
                           {service.title}
@@ -129,7 +214,7 @@ export default function ContactMe() {
                         <p>{service.services[2]}</p>
                         <p
                           className={`w-fit px-3 rounded-[5px] py-1 text-white select-none ${
-                            formData.service === service
+                            formData.service === service.title
                               ? "bg-gradient-to-l from-white to-black"
                               : "bg-orange-400"
                           }`}
@@ -217,6 +302,8 @@ export default function ContactMe() {
                     <input
                       type="number"
                       name="numOfSubject"
+                      value={formData.numOfSubject}
+                      onChange={handleInputChange}
                       className="border border-gray-200 cursor-pointer px-2 rounded-[5px] outline-none w-full py-1"
                     />
                   </div>
@@ -239,9 +326,14 @@ export default function ContactMe() {
               </div>
               <button
                 type="submit"
-                className="w-full my-8 bg-orange-700 py-3 rounded-[15px] hover:bg-orange-600 cursor-pointer"
+                disabled={isSubmitting}
+                className={`w-full my-8 py-3 rounded-[15px] cursor-pointer transition-colors ${
+                  isSubmitting
+                    ? "bg-gray-500 cursor-not-allowed"
+                    : "bg-orange-700 hover:bg-orange-600"
+                }`}
               >
-                Request Booking
+                {isSubmitting ? "Sending..." : "Request Booking"}
               </button>
             </form>
           </div>
