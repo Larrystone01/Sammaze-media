@@ -45,6 +45,7 @@ export default function ContactMe() {
       // Replace these with your actual EmailJS credentials
       const SERVICE_ID = "service_fa8p3tp";
       const TEMPLATE_ID = "template_2gkzxp4";
+      const TEMPLATE_ID2 = "template_uyksm4l";
       const PUBLIC_KEY = "UT6jUQYnN_mrHrY3S";
 
       // Prepare template parameters for EmailJS
@@ -59,7 +60,7 @@ export default function ContactMe() {
         expected_duration: formData.expectedDuration,
         number_of_guests: formData.numOfSubject,
         message: formData.message,
-        to_name: "Photography Team", // Your name/business name
+        to_name: "Sammaze Media", // Your name/business name
       };
 
       const result = await emailjs.send(
@@ -70,6 +71,9 @@ export default function ContactMe() {
       );
 
       if (result.status === 200) {
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID2, templateParams, {
+          publicKey: PUBLIC_KEY,
+        });
         setSubmitStatus("success");
         // Reset form after successful submission
         setFormData({

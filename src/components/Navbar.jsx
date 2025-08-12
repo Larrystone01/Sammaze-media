@@ -24,13 +24,16 @@ export default function Navbar() {
         <nav>
           <div className="container mx-auto md:px-6 px-4">
             <div className="nav-container flex justify-between items-center">
-              <div className="w-[40px] h-[40px] flex-1/3 min-w-0">
+              <Link
+                className="w-[40px] h-[40px] flex-1/3 min-w-0 cursor-pointer"
+                to={"/"}
+              >
                 <img
                   src="/images-videos/logo.png"
                   alt=""
                   className="w-[40px] h-[40px]"
                 />
-              </div>
+              </Link>
               <button
                 className="md:hidden cursor-pointer"
                 onClick={() => setIsOpen(true)}

@@ -1,9 +1,14 @@
 import ImageGrid from "./ImageGrid";
+import { motion } from "framer-motion";
 
 export default function HeroSubSection() {
   return (
     <>
-      <section className="md:my-10">
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        className="md:my-10"
+      >
         <div className="container mx-auto md:px-6 px-4">
           <div className="section-container md:grid md:grid-cols-2">
             <div className="images relative flex justify-center items-center min-h-[400px]">
@@ -25,12 +30,12 @@ export default function HeroSubSection() {
             </div>
             <div className="text-section flex flex-col justify-center mt-6 md:mt-0">
               <h1 className="font-bold text-[30px] mb-2 text-center md:text-left leading-none">
-                Caputring Stories Through Every Frame
+                Capturing Stories Through Every Frame
               </h1>
               <p>
                 With <span>Sammaze Media Production</span>, we don't just take
-                photos - we capture emotions, moments, and memories that last a
-                lifetime.
+                photos or make videos - we capture emotions, moments, and
+                memories that last a lifetime.
               </p>
               <p>
                 From joyful glances to quiet tears, our lens tells your story in
@@ -62,7 +67,7 @@ export default function HeroSubSection() {
             </div>
           </div> */}
         </div>
-      </section>
+      </motion.section>
     </>
   );
 }

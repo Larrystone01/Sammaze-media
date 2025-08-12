@@ -21,6 +21,9 @@ export default function Hero() {
               of your <span className="md:block">story-frame by frame</span>
             </p>
             <HeroShowCaseImages />
+            <p className="text-center mt-12 text-[30px] md:hidden">
+              Welcome To Sammaze's World
+            </p>
           </div>
         </div>
       </motion.section>
