@@ -46,9 +46,12 @@ export default function Hero() {
                       {service.description}
                     </div>
                     <ul className="services-offered mt-2 mb-4">
-                      {service.services.map((service) => {
+                      {service.services.map((service, index) => {
                         return (
-                          <div className="listItem flex items-center gap-2 mb-1">
+                          <div
+                            className="listItem flex items-center gap-2 mb-1"
+                            key={index}
+                          >
                             <CircleCheckBig size={15} />
                             <li className="">{service}</li>
                           </div>
