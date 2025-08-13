@@ -1,115 +1,145 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
-import {
-  Camera,
-  Video,
-  Film,
-  User,
-  Briefcase,
-  Building,
-  Clapperboard,
-  CircleCheckBig,
-} from "lucide-react";
+import { Camera, Video, Home, Music, CircleCheckBig } from "lucide-react";
 import Footer from "./Footer";
 import { GlobalContextProvider } from "./context/GlobalContext";
 
 const services = [
   {
     id: 1,
-    icon: <Camera />,
-    title: "Wedding Photography",
+    title: "Photography",
+    icon: <Camera size={24} />,
     description:
-      "Your love story deserves to be told beautifully. We capture every emotion, every detail, and every magical moment of your special day with artistic precision and heartfelt dedication.",
+      "Professional photography services for all occasions. From portraits to events, we capture your precious moments with artistic flair.",
     services: [
-      "Full day coverage (up to 12 hours)",
-      "Engagement session included",
-      "500+ edited high-resolution images",
-      "Online gallery for easy sharing",
+      "Portrait Photography",
+      "Event Photography",
+      "Product Photography",
+      "Lifestyle Photography",
+      "Fashion Photography",
     ],
-    pricing: 2500,
   },
   {
     id: 2,
-    icon: <Clapperboard />,
-    title: "Wedding Videography",
+    title: "Content Creator Cinematography",
+    icon: <Video size={24} />,
     description:
-      "Relive your wedding day forever with cinematic storytelling that captures not just the sights, but the sounds, emotions, and atmosphere of your celebration.",
+      "Specialized cinematography packages designed for content creators. Professional video production with various editing levels to suit your brand.",
     services: [
-      "Cinematic highlight reel (3-5 minutes)",
-      "Full ceremony footage",
-      "Reception highlights",
-      "Professional audio recording",
-      "4K resolution delivery",
+      "Short-form Content",
+      "Social Media Videos",
+      "Brand Content",
+      "Promotional Videos",
+      "Custom Editing",
     ],
-    pricing: 1800,
   },
   {
     id: 3,
-    icon: <Film />,
-    title: "Family Portraits",
+    title: "Wedding Coverage",
+    icon: <Video size={24} />,
     description:
-      "Preserve the bonds that matter most. Our family sessions create timeless portraits that celebrate your unique story and the love that connects you.",
+      "Complete wedding documentation with cinematic quality. We tell your love story through beautiful imagery and films.",
     services: [
-      "1-2 hour photo session",
-      "Multiple location options",
-      "50+ edited images",
-      "Wardrobe consultation",
-      "Print packages available",
+      "Wedding Photography",
+      "Wedding Videography",
+      "Drone Coverage",
+      "Pre-wedding Shoots",
+      "Reception Coverage",
     ],
-    pricing: 450,
   },
   {
     id: 4,
-    icon: <Video />,
-    title: "Corporate Events",
+    title: "Real Estate",
+    icon: <Home size={24} />,
     description:
-      "Professional documentation of your business milestones, conferences, and corporate gatherings. We help you showcase your brand's story with compelling visual content.",
+      "Showcase properties with stunning visuals that attract buyers and renters. Professional real estate photography and videography.",
     services: [
-      "Event photography & videography",
-      "Same-day preview images",
-      "Corporate headshots",
-      "Social media ready content",
-      "Usage rights included",
+      "Property Photography",
+      "Virtual Tours",
+      "Drone Real Estate",
+      "Interior Photography",
+      "Commercial Spaces",
     ],
-    pricing: 800,
   },
   {
     id: 5,
-    icon: <User />,
-    title: "Portrait Sessions",
+    title: "Club Events",
+    icon: <Music size={24} />,
     description:
-      "Express your personality through professional portraits. Whether for personal branding, artistic expression, or special occasions, we create images that truly represent you.",
+      "High-energy event coverage that captures the atmosphere and excitement of your club events and parties.",
     services: [
-      "Studio or outdoor locations",
-      "Professional lighting setup",
-      "Style and posing guidance",
-      "25+ retouched images",
-      "Social media optimization",
+      "Night Club Photography",
+      "Party Coverage",
+      "DJ Events",
+      "Corporate Parties",
+      "Social Events",
     ],
-    pricing: 350,
   },
-  {
-    id: 6,
-    icon: <Building />,
-    title: "Special Events",
-    description:
-      "From birthday celebrations to anniversaries, graduations to reunions, we capture the joy and significance of your milestone moments with creativity and care.",
-    services: [
-      "Flexible coverage options",
-      "Candid and posed shots",
-      "Quick turnaround available",
-      "Group photo coordination",
-      "Custom packages available",
+];
+
+const rateData = {
+  photography: {
+    title: "Photography Rates",
+    rates: [
+      { name: "Three Indoor Pictures", price: "₦25,000" },
+      { name: "Three Outdoor Pictures", price: "₦35,000" },
     ],
-    pricing: 600,
   },
+  contentCreator: {
+    title: "Cinematography Packages for Content Creators",
+    rates: [
+      { name: "Basic Creator Package (30s, Basic editing)", price: "₦60,000" },
+      {
+        name: "Premium Creator Package (60-90s, Advanced editing)",
+        price: "₦80,000",
+      },
+      {
+        name: "Elite Creator Package (60s+, Advanced + Color Grading)",
+        price: "₦150,000",
+      },
+    ],
+  },
+  wedding: {
+    title: "Wedding Coverage",
+    rates: [
+      { name: "Basic Highlights (No Drone)", price: "₦200,000" },
+      { name: "Premium Highlights (With Drone)", price: "₦350,000" },
+    ],
+  },
+  realEstate: {
+    title: "Real Estate (Photo/Video)",
+    rates: [
+      { name: "Within State (No Drone)", price: "₦150,000" },
+      { name: "Within State (With Drone)", price: "₦250,000" },
+      { name: "Outside State (No Drone)", price: "₦200,000" },
+      { name: "Outside State (With Drone)", price: "₦300,000" },
+    ],
+  },
+  clubEvents: {
+    title: "Club Events",
+    rates: [
+      { name: "Full Night Coverage", price: "₦200,000" },
+      { name: "3-4 Hours Coverage", price: "₦150,000" },
+    ],
+  },
+};
+
+const bookingTerms = [
+  "Deposit: 50% upfront validates your booking",
+  "Booking Notice: 48-72 hours prior to the shoot",
+  "Balance: Due upon final delivery",
+  "Drone Surcharge: ₦100,000 extra charges apply",
 ];
 
 const MainLayout = () => {
   return (
     <>
-      <GlobalContextProvider services={services}>
+      <GlobalContextProvider
+        services={services}
+        rateData={rateData}
+        bookingTerms={bookingTerms}
+      >
         <Navbar />
         <Outlet />
         <Footer />

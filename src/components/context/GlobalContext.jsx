@@ -5,9 +5,17 @@ export const useGlobalContext = () => {
   return useContext(GlobalContext);
 };
 
-export function GlobalContextProvider({ children, images, services }) {
+export function GlobalContextProvider({
+  children,
+  images,
+  services,
+  rateData,
+  bookingTerms,
+}) {
   return (
-    <GlobalContext.Provider value={{ images, services }}>
+    <GlobalContext.Provider
+      value={{ images, services, rateData, bookingTerms }}
+    >
       {children}
     </GlobalContext.Provider>
   );
