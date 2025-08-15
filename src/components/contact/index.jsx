@@ -1,6 +1,7 @@
 import { Asterisk } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function ContactMe() {
@@ -10,7 +11,11 @@ export default function ContactMe() {
     lastName: "",
     email: "",
     phone: "",
-    service: "",
+    bookingDetails: {
+      service: "",
+      package: "",
+      price: "",
+    },
     preferredDate: "",
     preferredTime: "",
     numOfSubject: "",
@@ -21,18 +26,25 @@ export default function ContactMe() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
 
+  // Getting Details from URL
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      bookingDetails: {
+        service: queryParams.get("service") || "",
+        package: queryParams.get("package") || "",
+        price: queryParams.get("price") || "",
+      },
+    }));
+  }, [search]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((currentData) => ({
       ...currentData,
       [name]: value,
-    }));
-  };
-
-  const handleServiceType = (title) => {
-    setFormData((prev) => ({
-      ...prev,
-      service: title,
     }));
   };
 
@@ -53,7 +65,9 @@ export default function ContactMe() {
         from_name: `${formData.firstName} ${formData.lastName}`,
         from_email: formData.email,
         phone_number: formData.phone,
-        service_type: formData.service,
+        booking_details_service: formData.bookingDetails.service,
+        booking_details_package: formData.bookingDetails.package,
+        booking_details_price: formData.bookingDetails.price,
         preferred_date: formData.preferredDate,
         preferred_time: formData.preferredTime,
         event_location: formData.eventLocation,
@@ -81,7 +95,11 @@ export default function ContactMe() {
           lastName: "",
           email: "",
           phone: "",
-          service: "",
+          bookingDetails: {
+            service: "",
+            package: "",
+            price: "",
+          },
           preferredDate: "",
           preferredTime: "",
           eventLocation: "",
@@ -197,37 +215,18 @@ export default function ContactMe() {
                 </div>
               </div>
               <div className="selection-field">
-                <h1 className="text-[20px] border-b my-4 pb-4 flex gap-1 items-center">
-                  Select Services <Asterisk size={12} color="red" />
+                <h1 className="text-[20px] border-b my-4 flex gap-1 items-center">
+                  Selected Service <Asterisk size={12} color="red" />
                 </h1>
-                <div className="services-selection grid md:grid-cols-3 gap-5">
-                  {services.map((service) => {
-                    return (
-                      <div
-                        className={`service text-black px-4 py-3 rounded-[10px] cursor-pointer ${
-                          formData.service === service.title
-                            ? "bg-orange-400 text-white"
-                            : "bg-white"
-                        }`}
-                        key={service.id}
-                        onClick={() => handleServiceType(service.title)}
-                      >
-                        <h1 className="font-bold text-[20px]">
-                          {service.title}
-                        </h1>
-                        <p>{service.services[2]}</p>
-                        <p
-                          className={`w-fit px-3 rounded-[5px] py-1 text-white select-none ${
-                            formData.service === service.title
-                              ? "bg-gradient-to-l from-white to-black"
-                              : "bg-orange-400"
-                          }`}
-                        >
-                          Custom Price
-                        </p>
-                      </div>
-                    );
-                  })}
+                <div className="services-selection bg-orange-400 text-white px-4 w-fit py-2 rounded-[10px]">
+                  <p>
+                    Service:{" "}
+                    <span className="capitalize">
+                      {formData.bookingDetails.service}
+                    </span>
+                  </p>
+                  <p>Package: {formData.bookingDetails.package}</p>
+                  <p>Price: {formData.bookingDetails.price}</p>
                 </div>
               </div>
               <div className="Event-details">
