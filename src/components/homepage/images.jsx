@@ -23,12 +23,13 @@ export default function HeroShowCaseImages() {
 
   return (
     <>
-      {/* Images on smaller screen */}
+      {/* Images on smaller and medium screen */}
       <motion.div
-        className="flex justify-center md:hidden"
+        className="flex justify-center lg:hidden md:my-9"
         onClick={togglePauseAndPlay}
         initial={{ x: "100%", opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 3 }}
       >
         <img
           src={currentImage.imgUrl}
@@ -36,7 +37,7 @@ export default function HeroShowCaseImages() {
           className="rounded-[15px] w-[300px]"
         />
       </motion.div>
-      <div className="flex justify-center mt-5 gap-2 md:hidden">
+      <div className="flex justify-center mt-5 gap-2 lg:hidden">
         {images.map((image, index) => {
           return (
             <button
@@ -52,7 +53,7 @@ export default function HeroShowCaseImages() {
         })}
       </div>
       {/* Images on larger screen */}
-      <div className="image-collage hidden md:flex items-center gap-4 overflow-hidden">
+      <div className="image-collage hidden lg:flex items-center gap-4 overflow-hidden">
         {images.map((image) => {
           return (
             <img

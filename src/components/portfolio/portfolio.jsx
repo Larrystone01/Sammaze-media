@@ -92,13 +92,13 @@ export default function PortfolioSection() {
     setSelectedItem(null);
   };
 
-  const mediaItems = mediaFiles.map((item) => {
-    return {
-      id: item.id,
-      src: item.src,
-      title: item.title,
-    };
-  });
+  // const mediaItems = mediaFiles.map((item) => {
+  //   return {
+  //     id: item.id,
+  //     src: item.src,
+  //     title: item.title,
+  //   };
+  // });
 
   // const itemsToShow = mediaFiles.filter((item) => {
   //   if (filter === "photo") {
@@ -159,7 +159,7 @@ export default function PortfolioSection() {
               </button>
             </div>
             {/* Grid Display */}
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
               {itemsToShow.map((item) => {
                 return (
                   <div key={item.id} className="">

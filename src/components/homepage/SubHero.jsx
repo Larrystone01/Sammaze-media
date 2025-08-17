@@ -5,8 +5,9 @@ export default function HeroSubSection() {
   return (
     <>
       <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: "100%" }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 4 }}
         className="md:my-10"
       >
         <div className="container mx-auto md:px-6 px-4">

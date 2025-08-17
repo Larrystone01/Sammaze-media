@@ -73,10 +73,10 @@ export default function Navbar() {
                   })}
                 </div>
                 <Link
-                  to={"/contact"}
+                  to={"/booking"}
                   className={`text-[14px] md:self-end self-center md:bg-orange-400 px-3 rounded-[5px] hover:bg-orange-300 hover:duration-300 hover:ease-in-out mt-4 md:mt-0`}
                 >
-                  Contact Us
+                  Book Us
                 </Link>
               </div>
             </div>

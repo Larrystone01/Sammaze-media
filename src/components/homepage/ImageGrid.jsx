@@ -35,7 +35,7 @@ export default function ImageGrid() {
                   src={img.imgUrl}
                   alt=""
                   key={img.id}
-                  className="w-full h-[300px] rounded-[15px]"
+                  className="w-full lg:h-[300px] rounded-[15px]"
                 />
               );
             })}

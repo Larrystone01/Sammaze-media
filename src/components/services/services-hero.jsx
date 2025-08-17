@@ -43,7 +43,7 @@ export default function Hero() {
   // Enhanced booking handler
   const handleBookUs = (service, selectedPackage = null) => {
     const serviceType = service.title.toLowerCase().replace(/\s+/g, "-");
-    let bookingUrl = `/contact?service=${encodeURIComponent(serviceType)}`;
+    let bookingUrl = `/booking?service=${encodeURIComponent(serviceType)}`;
 
     // Use selected package or the one stored in state
     const packageToBook = selectedPackage || selectedPackages[service.title];
