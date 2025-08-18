@@ -55,10 +55,10 @@ export default function ContactMe() {
 
     try {
       // Replace these with your actual EmailJS credentials
-      const SERVICE_ID = "service_fa8p3tp";
-      const TEMPLATE_ID = "template_2gkzxp4";
-      const TEMPLATE_ID2 = "template_uyksm4l";
-      const PUBLIC_KEY = "UT6jUQYnN_mrHrY3S";
+      const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
+      const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+      const TEMPLATE_ID2 = import.meta.env.VITE_TEMPLATE_ID2;
+      const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
 
       // Prepare template parameters for EmailJS
       const templateParams = {

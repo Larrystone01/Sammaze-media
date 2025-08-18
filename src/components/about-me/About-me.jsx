@@ -17,7 +17,7 @@ export default function AboutMe() {
                   videographer's sense of rhythm and flow. Today, I'm a visual
                   creative dedicated to producing compelling content that
                   resonates, whether it's a powerful photograph or an engaging
-                  film..`;
+                  film.`;
   return (
     <>
       <section>
