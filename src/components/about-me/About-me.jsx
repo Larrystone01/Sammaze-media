@@ -2,21 +2,22 @@ import { Camera, Film, Clapperboard, Focus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function AboutMe() {
-  const fullText = `My love affair with visual arts began over 8 years ago when I
-                  first picked up a camera during a family vacation. What
-                  started as a simple hobby quickly evolved into an
-                  all-consuming passion. I was mesmerized by the power of a
-                  single frame to freeze time, evoke emotions, and tell stories
-                  that words alone could never convey. Since then, I've had the
-                  privilege of documenting countless stories – from intimate
-                  wedding ceremonies and corporate milestones to breathtaking
-                  landscapes and candid portraits. Each project has taught me
-                  something new about the art of seeing and the craft of
-                  creating. I believe that every moment has a story waiting to
-                  be told. My approach combines technical expertise with genuine
-                  human connection. I don't just take pictures or record videos
-                  I capture the essence of who you are and what makes your story
-                  unique.`;
+  const fullText = `My journey into visual storytelling began not with a career
+                  plan, but with a simple curiosity: how do you hold onto a
+                  moment? I discovered my answer four years ago with a camera in
+                  hand, learning to freeze the fleeting emotions, vibrant
+                  colors, and subtle details of life one still frame at a time.
+                  Photography became my foundation, teaching me the power of
+                  light and composition to not just document, but to truly
+                  preserve a feeling. Over time, that passion evolved. I
+                  realized that some stories demanded movement and sound,
+                  leading me to delve into the dynamic world of videography. In
+                  the span of four years, I've honed my skills in both mediums,
+                  blending my photographer's eye for detail with a
+                  videographer's sense of rhythm and flow. Today, I'm a visual
+                  creative dedicated to producing compelling content that
+                  resonates, whether it's a powerful photograph or an engaging
+                  film..`;
   return (
     <>
       <section>
@@ -49,21 +50,22 @@ export default function AboutMe() {
                   My Journey
                 </h1>
                 <p className="text-center md:text-justify">
-                  My love affair with visual arts began over 8 years ago when I
-                  first picked up a camera during a family vacation. What
-                  started as a simple hobby quickly evolved into an
-                  all-consuming passion. I was mesmerized by the power of a
-                  single frame to freeze time, evoke emotions, and tell stories
-                  that words alone could never convey. Since then, I've had the
-                  privilege of documenting countless stories – from intimate
-                  wedding ceremonies and corporate milestones to breathtaking
-                  landscapes and candid portraits. Each project has taught me
-                  something new about the art of seeing and the craft of
-                  creating. I believe that every moment has a story waiting to
-                  be told. My approach combines technical expertise with genuine
-                  human connection. I don't just take pictures or record videos;
-                  I capture the essence of who you are and what makes your story
-                  unique.
+                  My journey into visual storytelling began not with a career
+                  plan, but with a simple curiosity: how do you hold onto a
+                  moment? I discovered my answer four years ago with a camera in
+                  hand, learning to freeze the fleeting emotions, vibrant
+                  colors, and subtle details of life one still frame at a time.
+                  Photography became my foundation, teaching me the power of
+                  light and composition to not just document, but to truly
+                  preserve a feeling. Over time, that passion evolved. I
+                  realized that some stories demanded movement and sound,
+                  leading me to delve into the dynamic world of videography. In
+                  the span of four years, I've honed my skills in both mediums,
+                  blending my photographer's eye for detail with a
+                  videographer's sense of rhythm and flow. Today, I'm a visual
+                  creative dedicated to producing compelling content that
+                  resonates, whether it's a powerful photograph or an engaging
+                  film.
                 </p>
               </div>
             </div>
