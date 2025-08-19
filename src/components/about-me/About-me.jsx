@@ -45,7 +45,7 @@ export default function AboutMe() {
                   </button>
                 </div>
               </div>
-              <div className="my-journey md:mt-40 lg:my-5">
+              <div className="my-journey md:mt-40 mt-4 lg:my-5">
                 <h1 className="text-[20px] font-bold text-center mb-5 pb-1 relative after:content-[''] after:absolute after:bottom-0 after:bg-orange-400 after:w-10 after:h-0.5 after:left-[46%]">
                   My Journey
                 </h1>
@@ -73,7 +73,7 @@ export default function AboutMe() {
               <img
                 src="/images-videos/img1.jpg"
                 alt=""
-                className="h-full justify-self-end rounded-[15px]"
+                className="md:h-full justify-self-end rounded-[15px]"
               />
             </div>
           </div>

@@ -172,20 +172,20 @@ export default function PortfolioSection() {
                           <img
                             src={item.src}
                             alt=""
-                            className="w-full h-[400px]"
+                            className="w-full md:h-[400px]"
                           />
                           <div className="absolute inset-0 bg-white/50 translate-x-full translate-y-full group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-1000"></div>
                         </div>
                         <h3>{item.title}</h3>
                       </div>
                     ) : (
-                      <div className="w-full">
+                      <div className="w-full rounded-[15px]">
                         <video
                           src={item.src}
                           controls
                           muted
                           title={item.title}
-                          className="w-full h-[400px] object-cover rounded-[15px]"
+                          className="w-full h-[400px] object-cover bg-black rounded-[15px]"
                         ></video>
                         <p>{item.title}</p>
                       </div>
