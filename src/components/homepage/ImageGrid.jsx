@@ -22,7 +22,7 @@ export default function ImageGrid() {
                 <img
                   src={img.imgUrl}
                   alt=""
-                  className="w-full md:h-[300px] rounded-[15px]"
+                  className="w-full md:h-[400px] rounded-[15px]"
                   key={img.id}
                 />
               );

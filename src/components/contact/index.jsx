@@ -1,44 +1,33 @@
 import { Asterisk } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
 import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function ContactMe() {
-  const { services } = useGlobalContext();
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    bookingDetails: {
-      service: "",
-      package: "",
-      price: "",
-    },
-    preferredDate: "",
-    preferredTime: "",
-    numOfSubject: "",
-    eventLocation: "",
-    expectedDuration: "",
-    message: "",
-  });
+  const { services, formData, setFormData } = useGlobalContext();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
 
+  // const searchParams = useSearchParams()
+  // const service = searchParams.get("service") || ""
+  // const price = searchParams.get("price") || ""
+  // const package = searchParams.get("package") || ""
+
   // Getting Details from URL
-  const { search } = useLocation();
-  const queryParams = new URLSearchParams(search);
-  useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      bookingDetails: {
-        service: queryParams.get("service") || "",
-        package: queryParams.get("package") || "",
-        price: queryParams.get("price") || "",
-      },
-    }));
-  }, [search]);
+  // const { search } = useLocation();
+  // const queryParams = new URLSearchParams(search);
+  // useEffect(() => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     bookingDetails: {
+  //       service: queryParams.get("service") || "",
+  //       package: queryParams.get("package") || "",
+  //       price: queryParams.get("price") || "",
+  //     },
+  //   }));
+  // }, [search]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -95,11 +84,11 @@ export default function ContactMe() {
           lastName: "",
           email: "",
           phone: "",
-          bookingDetails: {
-            service: "",
-            package: "",
-            price: "",
-          },
+          // bookingDetails: {
+          //   service: "",
+          //   package: "",
+          //   price: "",
+          // },
           preferredDate: "",
           preferredTime: "",
           eventLocation: "",
@@ -125,11 +114,11 @@ export default function ContactMe() {
 
   return (
     <>
-      <section>
+      <section className="flex justify-center items-center mx-auto">
         <div className="container mx-auto md:px-6 px-4">
-          <div className="booking-container text-black">
+          <div className="booking-container text-black md:max-w-[800px] flex flex-col mx-auto justify-center items-center">
             <h1 className="text-[30px] text-center">Book Your Session</h1>
-            <p className="text-center">
+            <p className="text-center mb-5 md:max-w-[700px]">
               Ready to capture your special moments? Fill out the form below and
               we'll get back to you within 24 hours to confirm your booking
             </p>
@@ -147,7 +136,7 @@ export default function ContactMe() {
               </div>
             )}
             <form
-              className="booking-field bg-gray-400 text-white p-4"
+              className="booking-field bg-[#faf9f7] text-black p-4"
               onSubmit={handleSubmit}
             >
               <h1 className="text-[20px] border-b mb-4">
@@ -218,16 +207,21 @@ export default function ContactMe() {
                 <h1 className="text-[20px] border-b my-4 flex gap-1 items-center">
                   Selected Service <Asterisk size={12} color="red" />
                 </h1>
-                <div className="services-selection bg-orange-400 text-white px-4 w-fit py-2 rounded-[10px]">
-                  <p>
-                    Service:{" "}
-                    <span className="capitalize">
-                      {formData.bookingDetails.service}
-                    </span>
-                  </p>
-                  <p>Package: {formData.bookingDetails.package}</p>
-                  <p>Price: {formData.bookingDetails.price}</p>
-                </div>
+                {formData.bookingDetails &&
+                  Object.values(formData.bookingDetails).some(
+                    (value) => value
+                  ) && (
+                    <div className="services-selection bg-orange-400 text-white px-4 w-fit py-2 rounded-[10px]">
+                      <p>
+                        Service:{" "}
+                        <span className="capitalize">
+                          {formData.bookingDetails.service}
+                        </span>
+                      </p>
+                      <p>Package: {formData.bookingDetails.package}</p>
+                      <p>Price: {formData.bookingDetails.price}</p>
+                    </div>
+                  )}
               </div>
               <div className="Event-details">
                 <h1 className="text-[20px] border-b my-4">Event Details </h1>
@@ -321,7 +315,7 @@ export default function ContactMe() {
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="border w-full px-3 py-3 placeholder:text-white"
+                      className="border border-gray-200 w-full px-3 py-3 placeholder:text-black outline-none"
                       placeholder="Describe your style, preferences, special requests, or any important details we should know about your event...."
                     ></textarea>
                   </div>
@@ -330,7 +324,7 @@ export default function ContactMe() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full my-8 py-3 rounded-[15px] cursor-pointer transition-colors ${
+                className={`w-full my-8 py-3 rounded-[15px] cursor-pointer transition-colors text-white ${
                   isSubmitting
                     ? "bg-gray-500 cursor-not-allowed"
                     : "bg-orange-700 hover:bg-orange-600"

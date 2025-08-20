@@ -187,6 +187,7 @@ export default function PortfolioSection() {
                           title={item.title}
                           className="w-full h-[400px] object-cover bg-black rounded-[15px]"
                         ></video>
+                        <title>{item.title}</title>
                         <p>{item.title}</p>
                       </div>
                     )}

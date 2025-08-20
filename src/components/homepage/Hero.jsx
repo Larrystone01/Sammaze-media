@@ -12,10 +12,10 @@ export default function Hero() {
       >
         <div className="container mx-auto md:px-6 px-4">
           <div className="hero-section md:py-10 py-5">
-            <p className="hero-text md:text-[60px] text-[20px] text-center leading-none">
+            <h1 className="hero-text md:text-[60px] text-[30px] text-center leading-none">
               Framing Emotions, One Beautiful{" "}
               <span className="block">Moment at a Time</span>
-            </p>
+            </h1>
             <p className="text-center mt-3 md:text-[20px] text-[14px] leading-none md:mb-0 mb-5">
               From quiet glances to joyous celebration, we capture the essence
               of your <span className="md:block">story-frame by frame</span>

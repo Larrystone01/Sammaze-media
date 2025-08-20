@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const GlobalContext = createContext();
 export const useGlobalContext = () => {
@@ -12,9 +12,34 @@ export function GlobalContextProvider({
   rateData,
   bookingTerms,
 }) {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    bookingDetails: {
+      service: "",
+      package: "",
+      price: "",
+    },
+    preferredDate: "",
+    preferredTime: "",
+    numOfSubject: "",
+    eventLocation: "",
+    expectedDuration: "",
+    message: "",
+  });
+
   return (
     <GlobalContext.Provider
-      value={{ images, services, rateData, bookingTerms }}
+      value={{
+        formData,
+        setFormData,
+        images,
+        services,
+        rateData,
+        bookingTerms,
+      }}
     >
       {children}
     </GlobalContext.Provider>

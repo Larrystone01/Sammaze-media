@@ -22,7 +22,7 @@ export default function AboutMe() {
     <>
       <section>
         <div className="container mx-auto md:px-6 px-4">
-          <div className="about-me md:flex lg:grid md:grid-cols-2 md:gap-9 lg:gap-0 mt-8 md:relative">
+          <div className="about-me md:flex lg:grid md:grid-cols-2 md:gap-9 mt-8 md:relative">
             <div className="details md:flex-1/2">
               <div className="upper-details md:absolute lg:static md:top-0">
                 <h1 className="font-bold md:text-[20px] uppercase text-center">
@@ -69,7 +69,7 @@ export default function AboutMe() {
                 </p>
               </div>
             </div>
-            <div className="imgg lg:h-[500px] md:h-full md:flex-1/2 self-end">
+            <div className="imgg lg:h-full md:h-full md:flex-1/2 self-end">
               <img
                 src="/images-videos/img1.jpg"
                 alt=""
