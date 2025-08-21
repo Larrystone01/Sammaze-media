@@ -80,7 +80,7 @@ const services = [
 
 const rateData = {
   photography: {
-    title: "Photography Rates",
+    title: "Photography",
     rates: [
       { name: "Three Indoor Pictures", price: "₦25,000" },
       { name: "Three Outdoor Pictures", price: "₦35,000" },

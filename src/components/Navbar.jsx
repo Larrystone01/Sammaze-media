@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const navClasses = ({ isActive }) =>
-    `md:px-2 px-1 rounded-[10px] hover:bg-orange-400 ${
+    `md:px-6 px-4 py-2 rounded-[20px] hover:bg-orange-400 ${
       isActive ? "bg-orange-400" : ""
     }`;
 
@@ -25,7 +25,7 @@ export default function Navbar() {
           <div className="container mx-auto md:px-6 px-4">
             <div className="nav-container flex justify-between items-center">
               <Link
-                className="w-[40px] h-[40px] flex-1/3 min-w-0 cursor-pointer"
+                className="md:w-[40px] w-fit h-[40px] md:flex-1/3 min-w-0 cursor-pointer"
                 to={"/"}
               >
                 <img
@@ -74,7 +74,7 @@ export default function Navbar() {
                 </div>
                 <Link
                   to={"/booking"}
-                  className={`text-[14px] md:self-end self-center md:bg-orange-400 px-3 rounded-[5px] hover:bg-orange-300 hover:duration-300 hover:ease-in-out mt-4 md:mt-0`}
+                  className={`text-[14px] md:self-end self-center md:bg-orange-400 px-5 py-2 rounded-[20px] hover:bg-orange-300 hover:duration-300 hover:ease-in-out mt-4 md:mt-0`}
                 >
                   Book Us
                 </Link>

@@ -84,11 +84,6 @@ export default function ContactMe() {
           lastName: "",
           email: "",
           phone: "",
-          // bookingDetails: {
-          //   service: "",
-          //   package: "",
-          //   price: "",
-          // },
           preferredDate: "",
           preferredTime: "",
           eventLocation: "",
@@ -136,7 +131,7 @@ export default function ContactMe() {
               </div>
             )}
             <form
-              className="booking-field bg-[#faf9f7] text-black p-4"
+              className="booking-field bg-[#faf9f7] text-black p-4 rounded-[20px]"
               onSubmit={handleSubmit}
             >
               <h1 className="text-[20px] border-b mb-4">
@@ -157,7 +152,7 @@ export default function ContactMe() {
                       value={formData.firstName}
                       onChange={handleInputChange}
                       required
-                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-1"
+                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-2"
                     />
                   </div>
                   <div className="last-name">
@@ -174,7 +169,7 @@ export default function ContactMe() {
                       value={formData.lastName}
                       onChange={handleInputChange}
                       required
-                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-1"
+                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-2"
                     />
                   </div>
                   <div className="email">
@@ -184,7 +179,7 @@ export default function ContactMe() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-1"
+                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-2"
                     />
                   </div>
                   <div className="phone">
@@ -198,7 +193,7 @@ export default function ContactMe() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       required
-                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-1"
+                      className="border border-gray-200 w-full rounded-[6px] outline-none mt-1 p-2"
                     />
                   </div>
                 </div>
@@ -238,7 +233,7 @@ export default function ContactMe() {
                       name="preferredDate"
                       value={formData.preferredDate}
                       onChange={handleInputChange}
-                      className="border border-gray-200 cursor-pointer px-2 py-1 rounded-[5px] outline-none w-full"
+                      className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
                     />
                   </div>
                   <div className="preferred-time">
@@ -248,7 +243,7 @@ export default function ContactMe() {
                       name="preferredTime"
                       value={formData.preferredTime}
                       onChange={handleInputChange}
-                      className="border border-gray-200 cursor-pointer px-2 rounded-[5px] outline-none w-full py-1"
+                      className="border border-gray-200 cursor-pointer px-2 rounded-[5px] outline-none w-full py-2"
                     />
                   </div>
                   <div className="Event Location">
@@ -266,7 +261,7 @@ export default function ContactMe() {
                       required
                       placeholder="E.g Bokku Mart Alimosho, Lagos State"
                       id=""
-                      className="border border-gray-200 cursor-pointer px-2 rounded-[5px] outline-none w-full py-1"
+                      className="border border-gray-200 cursor-pointer px-2 rounded-[5px] outline-none w-full py-2"
                     />
                   </div>
                   <div className="expected-duration">
@@ -281,7 +276,7 @@ export default function ContactMe() {
                       required
                       value={formData.expectedDuration}
                       onChange={handleInputChange}
-                      className="text-white w-full border rounded-[5px] outline-none px-2 py-1.5 border-gray-200 cursor-pointer bg-gray-400"
+                      className="text-black w-full border rounded-[5px] outline-none px-2 py-2.5 border-gray-200 cursor-pointer bg-gray-100"
                     >
                       <option value="Select Duration">Select Duration</option>
                       <option value="1-2 hours">1-2 hours</option>
@@ -301,7 +296,7 @@ export default function ContactMe() {
                       name="numOfSubject"
                       value={formData.numOfSubject}
                       onChange={handleInputChange}
-                      className="border border-gray-200 cursor-pointer px-2 rounded-[5px] outline-none w-full py-1"
+                      className="border border-gray-200 cursor-pointer px-2 rounded-[5px] outline-none w-full py-2"
                     />
                   </div>
                 </div>
@@ -310,12 +305,12 @@ export default function ContactMe() {
                     Additional Information{" "}
                   </h1>
                   <div className="detail w-full">
-                    <h3>Tell us about your vision</h3>
+                    <label>Tell us about your vision</label>
                     <textarea
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="border border-gray-200 w-full px-3 py-3 placeholder:text-black outline-none"
+                      className="border border-gray-200 w-full px-3 py-3 md:placeholder:text-black outline-none rounded-[5px] min-h-[100px] placeholder:text-[12px]"
                       placeholder="Describe your style, preferences, special requests, or any important details we should know about your event...."
                     ></textarea>
                   </div>

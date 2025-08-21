@@ -37,12 +37,18 @@ export default function AboutMe() {
                   them into timeless memories that speak to the heart.
                 </p>
                 <div className="button flex gap-2 justify-center mt-4">
-                  <button className="bg-orange-400 px-3 py-1 rounded-[6px] text-white text-[14px]">
+                  <Link
+                    to="/booking"
+                    className="bg-orange-400 px-4 py-3 rounded-[15px] text-white text-[14px] cursor-pointer hover:bg-orange-300"
+                  >
                     Get in Touch
-                  </button>
-                  <button className="bg-orange-400 px-3 py-1 rounded-[6px] text-white text-[14px]">
+                  </Link>
+                  <Link
+                    to="/portfolio"
+                    className="bg-orange-400 px-4 py-3 rounded-[15px] text-white text-[14px] cursor-pointer hover:bg-orange-300"
+                  >
                     View My Work
-                  </button>
+                  </Link>
                 </div>
               </div>
               <div className="my-journey md:mt-40 mt-4 lg:my-5">
@@ -69,7 +75,7 @@ export default function AboutMe() {
                 </p>
               </div>
             </div>
-            <div className="imgg lg:h-full md:h-full md:flex-1/2 self-end">
+            <div className="imgg lg:h-full md:h-full md:flex-1/2 self-end mt-6 md:mt-0">
               <img
                 src="/images-videos/img1.jpg"
                 alt=""

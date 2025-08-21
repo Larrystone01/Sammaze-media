@@ -5,7 +5,7 @@ import { useGlobalContext } from "../context/GlobalContext";
 
 export default function ServiceListings() {
   const { services, rateData, formData, setFormData } = useGlobalContext();
-  const [selectedPackages, setSelectedPackages] = useState({});
+  const [selectedPackage, setSelectedPackage] = useState({});
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -35,11 +35,17 @@ export default function ServiceListings() {
       serviceTitle,
       packageName: packageData.name,
       packagePrice: packageData.price,
+      packageData,
     });
-    setSelectedPackages((prev) => ({
-      ...prev,
-      [serviceTitle]: { ...packageData },
-    }));
+
+    const newPackage = {
+      service: serviceTitle,
+      package: packageData.name,
+      price: packageData.price,
+      packageData: packageData,
+    };
+
+    setSelectedPackage(newPackage);
 
     const newBookingDetails = {
       service: serviceTitle,
@@ -56,14 +62,14 @@ export default function ServiceListings() {
     saveBookingDetails(newBookingDetails);
   };
   // Enhanced booking handler
-  const handleBookUs = (service, selectedPackage = null) => {
-    const serviceType = service.title.toLowerCase().replace(/\s+/g, "-");
+  const handleBookUs = (service, directPackage = null) => {
+    // const serviceType = service.title.toLowerCase().replace(/\s+/g, "-");
     let bookingUrl = `/booking`;
-    const packageToBook = selectedPackage || selectedPackages[service.title];
+    const packageToBook = directPackage || selectedPackage;
     if (packageToBook) {
       const newBookingDetails = {
         service: service.title,
-        package: packageToBook.name,
+        package: packageToBook.package,
         price: packageToBook.price,
       };
       setFormData((currentFormData) => ({
@@ -80,10 +86,11 @@ export default function ServiceListings() {
     sessionStorage.setItem("booking-details", JSON.stringify(bookingDetails));
   };
 
+  // Get Booking Details and Selected Package from Session Storage on Component Mount
   useEffect(() => {
-    const savedPackageDetails = sessionStorage.getItem("selected-packkages");
+    const savedPackageDetails = sessionStorage.getItem("selected-package");
     if (savedPackageDetails) {
-      selectedPackages(JSON.parse(savedPackageDetails));
+      setSelectedPackage(JSON.parse(savedPackageDetails));
     }
     const savedBooking = sessionStorage.getItem("booking-details");
     if (savedBooking) {
@@ -94,6 +101,7 @@ export default function ServiceListings() {
     }
   }, []);
 
+  // Update Booking Details in Session Storage when formData.bookingDetails changes
   useEffect(() => {
     if (
       formData.bookingDetails &&
@@ -104,20 +112,21 @@ export default function ServiceListings() {
   }, [formData.bookingDetails]);
 
   useEffect(() => {
-    if (Object.keys(selectedPackages).length > 0) {
+    if (Object.keys(selectedPackage).length > 0) {
       sessionStorage.setItem(
-        "selected-packages",
-        JSON.stringify(selectedPackages)
+        "selected-package",
+        JSON.stringify(selectedPackage)
       );
     }
-  }, [selectedPackages]);
+  }, [selectedPackage]);
   return (
     <>
       <div className={`services ${isOnServicePage ? "" : "mt-4 px-3"}`}>
         <div className="services-container grid md:grid-cols-2 gap-3">
           {services.map((service, serviceIndex) => {
             const serviceRates = getServiceRates(service.title);
-            const selectedPackage = selectedPackages[service.title];
+            const isSelectedPackage =
+              selectedPackage?.service === service.title;
             return (
               <div
                 className="service bg-white px-4 py-3 rounded-[15px]"
@@ -138,7 +147,9 @@ export default function ServiceListings() {
                     </h4>
                     <div className="space-y-2">
                       {serviceRates.rates.map((rate, rateIndex) => {
-                        const isSelected = selectedPackage?.name === rate.name;
+                        const isSelected =
+                          selectedPackage?.service === service.title &&
+                          selectedPackage?.package === rate.name;
                         return (
                           <label
                             key={`${serviceIndex}-${rateIndex}-${rate.id}`}
@@ -154,13 +165,10 @@ export default function ServiceListings() {
                             <div className="flex items-center gap-2">
                               <input
                                 type="radio"
-                                name={`package-${service.title}`}
+                                name={`package-selection}`}
                                 id=""
                                 value={rate.id}
-                                checked={
-                                  selectedPackage?.service === service.title &&
-                                  selectedPackage?.package === rate.title
-                                }
+                                checked={isSelected}
                                 onChange={() => {
                                   handlePackageSelect(service.title, rate);
                                 }}
@@ -174,7 +182,7 @@ export default function ServiceListings() {
                         );
                       })}
                     </div>
-                    {selectedPackage && (
+                    {isSelectedPackage && selectedPackage && (
                       <div className="mt-3 p-2 bg-green-50 border border-green-200 rounded">
                         <p className="text-green-700 text-sm">
                           ✓ Selected: {selectedPackage.name} -{" "}
@@ -200,10 +208,12 @@ export default function ServiceListings() {
                 </ul>
                 <button
                   onClick={() => handleBookUs(service)}
-                  className="bg-orange-400 text-white px-3 py-2 rounded-[8px] cursor-pointer"
+                  className="bg-orange-400 flex gap-1 text-white px-3 py-2 rounded-[8px] cursor-pointer"
                 >
                   Book Us
-                  {selectedPackage && <span>({selectedPackage.price})</span>}
+                  {isSelectedPackage && selectedPackage && (
+                    <span>({selectedPackage.price})</span>
+                  )}
                 </button>
               </div>
             );
