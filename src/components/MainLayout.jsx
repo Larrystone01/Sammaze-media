@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
-import { Camera, Video, Home, Music, CircleCheckBig } from "lucide-react";
+import { Camera, Video, Home, Music } from "lucide-react";
 import Footer from "./Footer";
 import { GlobalContextProvider } from "./context/GlobalContext";
 

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function ContactMe() {
-  const { services, formData, setFormData } = useGlobalContext();
+  const { formData, setFormData } = useGlobalContext();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
