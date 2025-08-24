@@ -82,9 +82,11 @@ const Homepage = () => {
       "Akure",
     ],
   };
+  console.log("Type:", typeof seoData.ogImage);
+  console.log("Value:", seoData.ogImage);
   return (
     <>
-      <SEO {...seoData} />
+      <SEO />
       <GlobalContextProvider images={images}>
         <Hero images={images} />
         <HeroSubSection images={images} />

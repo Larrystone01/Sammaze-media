@@ -15,7 +15,8 @@ const AboutPage = () => {
     ogDescription:
       "Discover the story behind Sammaze Media. Passionate visual storytellers with 5+ years experience creating stunning photography and cinematic videography across Nigeria.",
     ogType: "website",
-    ogImage: "",
+    ogImage:
+      "https://res.cloudinary.com/dfex2qeg7/image/upload/v1755993614/img4_jig6w8.jpg",
     ogImageWidth: "1200",
     ogImageHeight: "630",
     businessName: "Sammaze Media Production",

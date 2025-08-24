@@ -12,7 +12,7 @@ const PortfolioPage = () => {
         ogTitle="Professional Photography & Videography Portfolio | Sammaze Media"
         ogDescription="Discover our award-winning visual storytelling through photography and cinematic videography. Featuring wedding films, corporate videos, portraits, and commercial content."
         ogType="website"
-        ogImage=""
+        ogImage="https://res.cloudinary.com/dfex2qeg7/image/upload/v1755993614/img4_jig6w8.jpg"
         ogImageWidth="1200"
         ogImageHeight="630"
         businessName="Sammaze Media Production"

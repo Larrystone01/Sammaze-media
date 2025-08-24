@@ -1,5 +1,4 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const SEO = ({
   title,
@@ -8,136 +7,153 @@ const SEO = ({
   ogTitle,
   ogDescription,
   ogImage,
-  ogImageWidth,
-  ogImageHeight,
-  ogType,
-  ogVideo,
+  ogImageWidth = "1200",
+  ogImageHeight = "630",
+  ogType = "website",
   businessName,
-  businessType,
+  businessType = "ProfessionalService",
   businessDescription,
   businessPhone,
   businessEmail,
   businessWebsite,
-  businessAddress,
-  businessImage,
-  businessHours,
-  services,
+  services = [],
+  serviceAreas = [],
   priceRange,
-  serviceAreas,
-  photographyStyle,
-  equipment,
-  latitude,
-  longitude,
   portfolioUrl,
   reviewsUrl,
-  philosophy,
-  experienceYears,
-  specialization,
 }) => {
-  const finalOgTitle = ogTitle || title;
-  const finalOgDescription = ogDescription || description;
-  const isValidOgImage =
-    typeof ogImage === "string" && ogImage.trim().startsWith("http");
+  useEffect(() => {
+    // Set document title
+    if (title) {
+      document.title = title;
+    }
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": businessType || "ProfessionalService",
-    name: businessName,
-    description: businessDescription || description,
-    telephone: businessPhone,
-    email: businessEmail,
-    url: businessWebsite,
-    areaServed: serviceAreas.map((area) => ({ "@type": "Place", name: area })),
-    serviceOffered: services.map((service) => ({
-      "@type": "Service",
-      name: service,
-    })),
-    additionalProperty: [
-      {
-        "@type": "PropertyValue",
-        name: "Photography Style",
-        value: photographyStyle,
-      },
-      {
-        "@type": "PropertyValue",
-        name: "Equipment",
-        value: equipment,
-      },
-      experienceYears && {
-        "@type": "PropertyValue",
-        name: "Experience Years",
-        value: experienceYears,
-      },
-      philosophy && {
-        "@type": "PropertyValue",
-        name: "Philosophy",
-        value: philosophy,
-      },
-      specialization && {
-        "@type": "PropertyValue",
-        name: "Specialization",
-        value: specialization,
-      },
-    ].filter(Boolean),
-  };
+    // Function to set or update meta tag
+    const setMetaTag = (name, content, property = false) => {
+      if (!content) return;
 
-  const generateBusinessSchema = () => {
-    if (!businessName) return null;
+      const attribute = property ? "property" : "name";
 
-    return {
+      // Remove existing meta tag
+      const existingTag = document.querySelector(
+        `meta[${attribute}="${name}"]`
+      );
+      if (existingTag) {
+        existingTag.remove();
+      }
+
+      // Create new meta tag
+      const meta = document.createElement("meta");
+      meta.setAttribute(attribute, name);
+      meta.setAttribute("content", String(content));
+      document.head.appendChild(meta);
+    };
+
+    // Function to add JSON-LD structured data
+    const addStructuredData = (data, id = "seo-structured-data") => {
+      // Remove existing structured data with this ID
+      const existingScript = document.querySelector(`script[data-id="${id}"]`);
+      if (existingScript) {
+        existingScript.remove();
+      }
+
+      // Add new structured data
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-id", id);
+      script.textContent = JSON.stringify(data, null, 2);
+      document.head.appendChild(script);
+    };
+
+    // Set basic meta tags
+    setMetaTag("description", description);
+    setMetaTag("keywords", keywords);
+    setMetaTag("viewport", "width=device-width, initial-scale=1.0");
+    setMetaTag("theme-color", "#000000");
+
+    // Set Open Graph tags
+    const finalOgTitle = ogTitle || title;
+    const finalOgDescription = ogDescription || description;
+
+    setMetaTag("og:title", finalOgTitle, true);
+    setMetaTag("og:description", finalOgDescription, true);
+    setMetaTag("og:type", ogType, true);
+    setMetaTag("og:site_name", businessName, true);
+
+    // Set og:image tags (essential for social sharing)
+    if (ogImage && ogImage.startsWith("https")) {
+      setMetaTag("og:image", ogImage, true);
+      setMetaTag("og:image:secure_url", ogImage, true);
+      setMetaTag("og:image:alt", finalOgTitle, true);
+      setMetaTag("og:image:type", "image/jpeg", true);
+      setMetaTag("og:image:width", ogImageWidth, true);
+      setMetaTag("og:image:height", ogImageHeight, true);
+    }
+
+    // Twitter Card tags (important for social media)
+    setMetaTag("twitter:card", "summary_large_image");
+    setMetaTag("twitter:title", finalOgTitle);
+    setMetaTag("twitter:description", finalOgDescription);
+    if (ogImage && ogImage.startsWith("https")) {
+      setMetaTag("twitter:image", ogImage);
+    }
+
+    // Service areas and price range (useful for local SEO)
+    if (serviceAreas.length > 0) {
+      setMetaTag("service-areas", serviceAreas.join(", "));
+    }
+    if (priceRange) {
+      setMetaTag("price-range", priceRange);
+    }
+
+    // Essential structured data for photography & videography business
+    const businessSchema = {
       "@context": "https://schema.org",
       "@type": businessType,
       name: businessName,
-      description: businessDescription,
+      description: businessDescription || description,
       url: businessWebsite,
-      ...(businessPhone && { telephone: businessPhone }),
-      ...(businessEmail && { email: businessEmail }),
-      ...(priceRange && { priceRange: priceRange }),
-      ...(businessImage && { image: businessImage, logo: businessImage }),
-      ...(businessAddress && {
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: businessAddress.streetAddress,
-          addressLocality: businessAddress.addressLocality,
-          addressRegion: businessAddress.addressRegion,
-          postalCode: businessAddress.postalCode,
-          addressCountry: businessAddress.addressCountry,
-        },
-      }),
-      ...(latitude &&
-        longitude && {
-          geo: {
-            "@type": "GeoCoordinates",
-            latitude: latitude,
-            longitude: longitude,
-          },
-        }),
-      ...(businessHours && { openingHours: businessHours }),
-      ...(serviceAreas && {
-        serviceArea: serviceAreas.map((area) => ({
-          "@type": "AdministrativeArea",
-          name: area,
-        })),
-      }),
-      ...(services && {
-        hasOfferCatalog: {
-          "@type": "OfferCatalog",
-          name: "Photography & Videography Services",
-          itemListElement: services.map((service, index) => ({
-            "@type": "Offer",
-            position: index + 1,
-            itemOffered: {
-              "@type": "Service",
-              name: service,
-              description: `Professional ${service.toLowerCase()} services`,
-              provider: {
-                "@type": "Organization",
-                name: businessName,
-              },
-            },
-          })),
-        },
-      }),
+      telephone: businessPhone,
+      email: businessEmail,
+      priceRange: priceRange,
+
+      // Specify as both photography and videography business
+      additionalType: [
+        "https://schema.org/PhotographyService",
+        "https://schema.org/VideoProductionService",
+      ],
+
+      // Service areas for local SEO (photographers/videographers in specific cities)
+      areaServed: serviceAreas.map((area) => ({
+        "@type": "Place",
+        name: area,
+      })),
+
+      // Photography & Videography services offered
+      hasOfferCatalog:
+        services.length > 0
+          ? {
+              "@type": "OfferCatalog",
+              name: "Photography & Videography Services",
+              itemListElement: services.map((service, index) => ({
+                "@type": "Offer",
+                position: index + 1,
+                itemOffered: {
+                  "@type": service.toLowerCase().includes("video")
+                    ? "VideoProductionService"
+                    : "PhotographyService",
+                  name: service,
+                  description: `Professional ${service.toLowerCase()} services for weddings, events, and commercial projects`,
+                  provider: {
+                    "@type": "Organization",
+                    name: businessName,
+                  },
+                },
+              })),
+            }
+          : undefined,
+
+      // Ratings (crucial for creative services)
       aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: "4.9",
@@ -145,56 +161,47 @@ const SEO = ({
         bestRating: "5",
       },
 
+      // Portfolio and review links (essential for visual businesses)
       sameAs: [portfolioUrl, reviewsUrl].filter(Boolean),
     };
-  };
 
-  const businessSchema = generateBusinessSchema();
+    // Remove undefined properties
+    Object.keys(businessSchema).forEach((key) => {
+      if (businessSchema[key] === undefined) {
+        delete businessSchema[key];
+      }
+    });
 
-  return (
-    <Helmet>
-      <html language="en" />
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      {/* Open graph tags */}
-      <meta property="og:title" content={finalOgTitle} />
-      <meta property="og:description" content={finalOgDescription} />
-      <meta property="og:type" content={ogType} />
-      {businessName && <meta property="og:site_name" content={businessName} />}
-      {ogImage && isValidOgImage && (
-        <>
-          <meta property="og:image" content={ogImage} />
-          <meta property="og:image:alt" content={finalOgTitle} />
-          <meta property="og:image:width" content={ogImageWidth} />
-          <meta property="og:image:height" content={ogImageHeight} />
-          <meta property="og:image:type" content="image/jpeg" />
-        </>
-      )}
-      {serviceAreas && (
-        <meta name="service-areas" content={serviceAreas.join(", ")} />
-      )}
+    // Add structured data
+    if (businessName) {
+      addStructuredData(businessSchema, "business-schema");
+    }
 
-      {priceRange && <meta name="price-range" content={priceRange} />}
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="theme-color" content="#000000" />
-      <meta name="msapplication-TileColor" content="#000000" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="black-translucent"
-      />
-      {businessSchema && (
-        <script type="application/ld+json">
-          {JSON.stringify(businessSchema, null, 2)}
-        </script>
-      )}
+    console.log("✅ SEO tags set successfully with custom component!");
+  }, [
+    title,
+    description,
+    keywords,
+    ogTitle,
+    ogDescription,
+    ogImage,
+    ogImageWidth,
+    ogImageHeight,
+    ogType,
+    businessName,
+    businessType,
+    businessDescription,
+    businessPhone,
+    businessEmail,
+    businessWebsite,
+    services,
+    serviceAreas,
+    priceRange,
+    portfolioUrl,
+    reviewsUrl,
+  ]);
 
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData, null, 2)}
-      </script>
-    </Helmet>
-  );
+  // This component doesn't render anything visible
+  return null;
 };
-
 export default SEO;
