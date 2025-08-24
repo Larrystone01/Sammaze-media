@@ -8,8 +8,8 @@ import Homepage from "../pages/Homepage";
 import Pricing from "../pages/Pricing";
 import PortfolioPage from "../pages/PortfolioPage";
 import AboutPage from "../pages/AboutPage";
-import ServicesPage from "../pages/ServicesPage";
 import BookingPage from "../pages/BookingPage";
+import PricingPage from "../pages/Pricing";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,7 +18,7 @@ const router = createBrowserRouter(
       <Route path="/pricng" element={<Pricing />} />
       <Route path="/portfolio" element={<PortfolioPage />} />
       <Route path="/about" element={<AboutPage />} />
-      <Route path="/services" element={<ServicesPage />} />
+      <Route path="/pricing" element={<PricingPage />} />
       <Route path="/booking" element={<BookingPage />} />
     </Route>
   )

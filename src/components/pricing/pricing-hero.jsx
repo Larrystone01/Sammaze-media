@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CircleCheckBig, Info } from "lucide-react";
 import { useGlobalContext } from "../context/GlobalContext";
 import { useState } from "react";
-import ServiceListings from "./serviceDetails";
+import ServiceListings from "./pricingDetails";
 
 export default function Hero() {
   const { rateData, bookingTerms, setFormData } = useGlobalContext();

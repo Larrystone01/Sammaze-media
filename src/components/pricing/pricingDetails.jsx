@@ -3,7 +3,7 @@ import { CircleCheckBig } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
 
-export default function ServiceListings() {
+export default function PricingListings() {
   const { services, rateData, formData, setFormData } = useGlobalContext();
   const [selectedPackage, setSelectedPackage] = useState({});
   const navigate = useNavigate();
