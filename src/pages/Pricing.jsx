@@ -12,7 +12,7 @@ const PricingPage = () => {
         ogTitle="Sammaze Media Pricing - Professional Photography & Videography Rates"
         ogDescription="Discover our competitive pricing for wedding photography, corporate videos, portraits, and commercial content. Quality visual storytelling at transparent, affordable rates."
         ogType="website"
-        ogImage=""
+        ogImage="https://res.cloudinary.com/dfex2qeg7/image/upload/v1755993614/img4_jig6w8.jpg"
         ogImageWidth="1200"
         ogImageHeight="630"
         businessName="Sammaze Media Production"

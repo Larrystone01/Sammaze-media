@@ -86,7 +86,7 @@ const Homepage = () => {
   console.log("Value:", seoData.ogImage);
   return (
     <>
-      <SEO />
+      <SEO {...seoData} />
       <GlobalContextProvider images={images}>
         <Hero images={images} />
         <HeroSubSection images={images} />
