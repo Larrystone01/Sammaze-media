@@ -1,5 +1,5 @@
 import { Asterisk } from "lucide-react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
 import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
@@ -9,6 +9,7 @@ export default function ContactMe() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
+  const navigate = useNavigate();
 
   // const searchParams = useSearchParams()
   // const service = searchParams.get("service") || ""
@@ -43,13 +44,13 @@ export default function ContactMe() {
     setSubmitStatus("");
 
     try {
-      // Replace these with your actual EmailJS credentials
+      // EmailJS credentials
       const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
       const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
       const TEMPLATE_ID2 = import.meta.env.VITE_TEMPLATE_ID2;
       const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
 
-      // Prepare template parameters for EmailJS
+      // template parameters for EmailJS
       const templateParams = {
         from_name: `${formData.firstName} ${formData.lastName}`,
         from_email: formData.email,
@@ -63,7 +64,7 @@ export default function ContactMe() {
         expected_duration: formData.expectedDuration,
         number_of_guests: formData.numOfSubject,
         message: formData.message,
-        to_name: "Sammaze Media", // Your name/business name
+        to_name: "Sammaze Media", // business name
       };
 
       const result = await emailjs.send(
@@ -84,6 +85,7 @@ export default function ContactMe() {
           lastName: "",
           email: "",
           phone: "",
+          bookingDetails: { service: "", package: "", price: "" },
           preferredDate: "",
           preferredTime: "",
           eventLocation: "",
@@ -95,6 +97,7 @@ export default function ContactMe() {
         setTimeout(() => {
           setSubmitStatus("");
         }, 3000);
+        // navigate("/");
       }
     } catch (error) {
       console.error("EmailJS Error:", error);

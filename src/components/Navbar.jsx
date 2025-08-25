@@ -44,8 +44,8 @@ export default function Navbar() {
               <div
                 className={`${
                   isOpen
-                    ? "translate-x-0 duration-1000 ease-in py-4 px-4"
-                    : "translate-x-full duration-1000 ease-out"
+                    ? "translate-x-0 duration-300 ease-in py-4 px-4"
+                    : "translate-x-full duration-300 ease-out"
                 } navlinks-button flex-2/3 flex md:flex-row md:justify-between md:static top-0 right-0 overflow-hidden fixed w-[100%] md:translate-x-0 bg-black h-full flex-col z-50`}
               >
                 <button
@@ -91,5 +91,5 @@ const navlinks = [
   { id: 1, title: "Home", path: "/" },
   { id: 2, title: "About", path: "/about" },
   { id: 3, title: "Portfolio", path: "/portfolio" },
-  { id: 4, title: "Services", path: "/pricing" },
+  { id: 4, title: "Pricing", path: "/pricing" },
 ];
