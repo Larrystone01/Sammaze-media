@@ -7,43 +7,57 @@ const mediaFiles = [
     src: "/images-videos/img1.jpg",
     title: "A Dinner Photoshoot",
     type: "photo",
+    alt: "a final year dinner photoshoot",
   },
   {
     id: 2,
     src: "/images-videos/img2.jpg",
     title: "An Indoor Shoot",
     type: "photo",
+    alt: "an indoor photoshoot",
   },
-  { id: 3, src: "/images-videos/img3.jpg", title: "An Image", type: "photo" },
+  {
+    id: 3,
+    src: "/images-videos/img3.jpg",
+    title: "An Image",
+    type: "photo",
+    alt: "an outdoor photoshoot",
+  },
+
   {
     id: 4,
     src: "/images-videos/img4.jpg",
     title: "A Portrait Session",
     type: "photo",
+    alt: "a model portrait",
   },
   {
     id: 5,
     src: "/images-videos/img5.jpg",
     title: "An Outdoor Shoot",
     type: "photo",
+    alt: "brand visual shoot",
   },
   {
     id: 6,
     src: "/images-videos/img6.jpg",
     title: "An Outdoor Shoot",
     type: "photo",
+    alt: "",
   },
   {
     id: 7,
     src: "/images-videos/img8.jpg",
     title: "An Outdoor Shoot",
     type: "photo",
+    alt: "",
   },
   {
     id: 8,
     src: "/images-videos/video1.mp4",
     title: "Two hearts 💞 , one story — told in every cinematic frame.",
     type: "video",
+    alt: "a pre-wedding & traditional wedding video shoot and coverage",
   },
   {
     id: 9,
@@ -51,6 +65,7 @@ const mediaFiles = [
     title:
       "Because some memories deserve more than just a picture — they deserve motion.",
     type: "video",
+    alt: "qudri & fathia pre-wedding video shoot",
   },
   {
     id: 10,
@@ -58,18 +73,21 @@ const mediaFiles = [
     title: `Timeless beauty ✨✨✨✨🥰
 Every bride deserve this level of glow 🥰🥰🥰`,
     type: "video",
+    alt: "a wedding video shoot and coverage",
   },
   {
     id: 11,
     src: "/images-videos/video4.mp4",
     title: "ILORIN DURBAR",
     type: "video",
+    alt: "ilorin traditional durbar video coverage",
   },
   {
     id: 12,
     src: "/images-videos/video5.mp4",
     title: "Stunning Building Interior Tour",
     type: "video",
+    alt: "real estate interior tour shoot",
   },
   {
     id: 13,
@@ -77,6 +95,14 @@ Every bride deserve this level of glow 🥰🥰🥰`,
     title: `A masterpiece painted in culture and pride✨
 Heritage in every thread, elegance in every glance.🤭`,
     type: "video",
+    alt: "a lifestyle video coverage",
+  },
+  {
+    id: 14,
+    src: "https://res.cloudinary.com/dfex2qeg7/video/upload/v1756082388/SnapInsta.to_AQNE3I0RlV9eeSDpVjCagDxHyyUzTWDhVsS7pb9JCf2jZQZkBETCjlDNm4-HMCdu2P76l378c6MR11TkSvqD5ltsyv7d-pS8d55heWA_xzyfi3.mp4",
+    title: "Meelah's Empire Brand Shoot For KVV",
+    type: "video",
+    alt: "a brand shoot for meelah's empire",
   },
 ];
 
@@ -171,12 +197,13 @@ export default function PortfolioSection() {
                         <div className="img-container relative group overflow-hidden rounded-[15px]">
                           <img
                             src={item.src}
-                            alt=""
+                            alt={item.alt}
+                            loading="lazy"
                             className="w-full md:h-[400px]"
                           />
                           <div className="absolute inset-0 bg-white/50 translate-x-full translate-y-full group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-1000"></div>
                         </div>
-                        <h3>{item.title}</h3>
+                        <p>{item.title}</p>
                       </div>
                     ) : (
                       <div className="w-full rounded-[15px]">

@@ -48,25 +48,34 @@ export default function Footer() {
                 <Link to="/">Home</Link>
                 <Link to="/about">About</Link>
                 <Link to="/pricing">Pricing</Link>
-                <Link to="/contact">Contact us</Link>
+                <Link to="/portfolio">Our Work</Link>
               </div>
             </div>
             <div className="gallery-section text-white">
               <h1 className="text-red-700 font-bold mb-2">Gallery</h1>
               <div className="links flex flex-col gap-1.5 text-[14px]">
-                <Link to="/">Wedding Photography</Link>
-                <Link to="/about">Lifestyle Sessions</Link>
-                <Link to="/pricing">Pre-Wedding Shoots</Link>
-                <Link to="/contact">Contact us</Link>
+                <Link to="/portfolio">Wedding Photography</Link>
+                <Link to="/portfolio">Lifestyle Sessions</Link>
+                <Link to="/portfolio">Pre-Wedding Shoots</Link>
+                <Link to="/portfolio">Content Creation</Link>
               </div>
             </div>
             <div className="gallery-section text-white">
               <h1 className="text-red-700 font-bold mb-2">Contacts</h1>
               <div className="links flex flex-col gap-1.5 text-[14px]">
-                <Link to="/">Mobile/Phone Number</Link>
-                <Link to="/about">Email</Link>
-                <Link to="/pricing">Offcie Address</Link>
-                <Link to="/contact">Contact us</Link>
+                <a href="tel:+2347047951936" aria-label="Call Sammaze Media">
+                  Mobile/Phone Number
+                </a>
+                <a
+                  href="mailto:sammazemedia@gmail.com"
+                  aria-label="Email Sammaze Media"
+                >
+                  Email
+                </a>
+                <a href="tel:+2347047951936" aria-label="Call Sammaze Media">
+                  Office Address
+                </a>
+                <Link to="/booking">Book us</Link>
               </div>
             </div>
           </div>
