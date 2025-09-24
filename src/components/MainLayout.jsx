@@ -87,7 +87,7 @@ const rateData = {
     ],
   },
   contentCreator: {
-    title: "Cinematography Packages for Content Creators",
+    title: "Cinematography Packages for Content Creator",
     rates: [
       { name: "Basic Creator Package (30s, Basic editing)", price: "₦60,000" },
       {

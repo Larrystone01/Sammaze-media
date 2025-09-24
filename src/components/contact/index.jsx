@@ -5,30 +5,34 @@ import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function ContactMe() {
-  const { formData, setFormData } = useGlobalContext();
+  const { formData, setFormData, rateData, services } = useGlobalContext();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
   const navigate = useNavigate();
 
-  // const searchParams = useSearchParams()
-  // const service = searchParams.get("service") || ""
-  // const price = searchParams.get("price") || ""
-  // const package = searchParams.get("package") || ""
+  const getServiceTitle = () => {
+    return services.map((service) => service.title);
+  };
 
-  // Getting Details from URL
-  // const { search } = useLocation();
-  // const queryParams = new URLSearchParams(search);
-  // useEffect(() => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     bookingDetails: {
-  //       service: queryParams.get("service") || "",
-  //       package: queryParams.get("package") || "",
-  //       price: queryParams.get("price") || "",
-  //     },
-  //   }));
-  // }, [search]);
+  const titles = getServiceTitle();
+
+  const findMatchingRates = (serviceTitle) => {
+    const lowerTitle = serviceTitle.toLowerCase().split("");
+
+    // Look through all keys in rateData
+    for (const key in rateData) {
+      const serviceObject = rateData[key];
+      const serviceObjectTitleWords = serviceObject.title
+        .toLowerCase()
+        .split("");
+      if (lowerTitle.every((word) => serviceObjectTitleWords.includes(word))) {
+        return serviceObject.rates; // return the rates for the matched key
+      }
+    }
+
+    return []; // no match found
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -205,21 +209,65 @@ export default function ContactMe() {
                 <h1 className="text-[20px] border-b my-4 flex gap-1 items-center">
                   Selected Service <Asterisk size={12} color="red" />
                 </h1>
-                {formData.bookingDetails &&
-                  Object.values(formData.bookingDetails).some(
-                    (value) => value
-                  ) && (
-                    <div className="services-selection bg-orange-400 text-white px-4 w-fit py-2 rounded-[10px]">
-                      <p>
-                        Service:{" "}
-                        <span className="capitalize">
-                          {formData.bookingDetails.service}
-                        </span>
-                      </p>
-                      <p>Package: {formData.bookingDetails.package}</p>
-                      <p>Price: {formData.bookingDetails.price}</p>
-                    </div>
-                  )}
+                <div className="selections grid grid-cols-2 gap-5 space-y-4">
+                  <select
+                    name="service"
+                    id=""
+                    value={formData.bookingDetails.service}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        bookingDetails: {
+                          ...formData.bookingDetails,
+                          service: e.target.value,
+                        },
+                      });
+                    }}
+                    className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
+                  >
+                    <option value="">Select a service</option>
+                    {titles.map((title) => {
+                      return <option value={title}>{title}</option>;
+                    })}
+                  </select>
+                  <select
+                    name="package"
+                    id=""
+                    onChange={(e) => {
+                      const selectedPackage = findMatchingRates(
+                        formData.bookingDetails.service
+                      ).find((rate) => rate.name === e.target.value);
+                      setFormData({
+                        ...formData,
+                        bookingDetails: {
+                          ...formData.bookingDetails,
+                          package: selectedPackage?.name || "",
+                          price: selectedPackage?.price || "",
+                        },
+                      });
+                    }}
+                    value={formData.bookingDetails.package}
+                    disabled={!formData.bookingDetails.service}
+                    className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
+                  >
+                    <option value="">Select a package</option>
+                    {formData.bookingDetails.service &&
+                      findMatchingRates(formData.bookingDetails.service).map(
+                        (rate, index) => (
+                          <option value={rate.name} key={index}>
+                            {rate.name}
+                          </option>
+                        )
+                      )}
+                  </select>
+                  <input
+                    type="text"
+                    readOnly
+                    value={formData.bookingDetails.price || ""}
+                    placeholder="Price"
+                    className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
+                  />
+                </div>
               </div>
               <div className="Event-details">
                 <h1 className="text-[20px] border-b my-4">Event Details </h1>
