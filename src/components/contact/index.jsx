@@ -207,66 +207,84 @@ export default function ContactMe() {
               </div>
               <div className="selection-field">
                 <h1 className="text-[20px] border-b my-4 flex gap-1 items-center">
-                  Selected Service <Asterisk size={12} color="red" />
+                  Select Service <Asterisk size={12} color="red" />
                 </h1>
-                <div className="selections grid grid-cols-2 gap-5 space-y-4">
-                  <select
-                    name="service"
-                    id=""
-                    value={formData.bookingDetails.service}
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        bookingDetails: {
-                          ...formData.bookingDetails,
-                          service: e.target.value,
-                        },
-                      });
-                    }}
-                    className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
-                  >
-                    <option value="">Select a service</option>
-                    {titles.map((title) => {
-                      return <option value={title}>{title}</option>;
-                    })}
-                  </select>
-                  <select
-                    name="package"
-                    id=""
-                    onChange={(e) => {
-                      const selectedPackage = findMatchingRates(
-                        formData.bookingDetails.service
-                      ).find((rate) => rate.name === e.target.value);
-                      setFormData({
-                        ...formData,
-                        bookingDetails: {
-                          ...formData.bookingDetails,
-                          package: selectedPackage?.name || "",
-                          price: selectedPackage?.price || "",
-                        },
-                      });
-                    }}
-                    value={formData.bookingDetails.package}
-                    disabled={!formData.bookingDetails.service}
-                    className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
-                  >
-                    <option value="">Select a package</option>
-                    {formData.bookingDetails.service &&
-                      findMatchingRates(formData.bookingDetails.service).map(
-                        (rate, index) => (
-                          <option value={rate.name} key={index}>
-                            {rate.name}
-                          </option>
-                        )
-                      )}
-                  </select>
-                  <input
-                    type="text"
-                    readOnly
-                    value={formData.bookingDetails.price || ""}
-                    placeholder="Price"
-                    className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
-                  />
+
+                <div className="selections md:grid md:grid-cols-2 gap-5 space-y-4">
+                  <div className="service">
+                    <label htmlFor="phone" className="flex gap-1 items-center">
+                      Service
+                      <Asterisk size={12} color="red" />
+                    </label>
+                    <select
+                      name="service"
+                      id=""
+                      value={formData.bookingDetails.service}
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          bookingDetails: {
+                            ...formData.bookingDetails,
+                            service: e.target.value,
+                          },
+                        });
+                      }}
+                      className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
+                    >
+                      <option value="">Select a service</option>
+                      {titles.map((title) => {
+                        return <option value={title}>{title}</option>;
+                      })}
+                    </select>
+                  </div>
+                  <div className="package">
+                    <label htmlFor="phone" className="flex gap-1 items-center">
+                      Package
+                      <Asterisk size={12} color="red" />
+                    </label>
+                    <select
+                      name="package"
+                      id=""
+                      onChange={(e) => {
+                        const selectedPackage = findMatchingRates(
+                          formData.bookingDetails.service
+                        ).find((rate) => rate.name === e.target.value);
+                        setFormData({
+                          ...formData,
+                          bookingDetails: {
+                            ...formData.bookingDetails,
+                            package: selectedPackage?.name || "",
+                            price: selectedPackage?.price || "",
+                          },
+                        });
+                      }}
+                      value={formData.bookingDetails.package}
+                      disabled={!formData.bookingDetails.service}
+                      className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
+                    >
+                      <option value="">Select a package</option>
+                      {formData.bookingDetails.service &&
+                        findMatchingRates(formData.bookingDetails.service).map(
+                          (rate, index) => (
+                            <option value={rate.name} key={index}>
+                              {rate.name}
+                            </option>
+                          )
+                        )}
+                    </select>
+                  </div>
+                  <div className="price">
+                    <label htmlFor="phone" className="flex gap-1 items-center">
+                      Price
+                    </label>
+                    <input
+                      type="text"
+                      readOnly
+                      value={formData.bookingDetails.price || ""}
+                      placeholder="Price"
+                      className="border border-gray-200 cursor-pointer px-2 py-2 rounded-[5px] outline-none w-full"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="Event-details">
